@@ -1,7 +1,6 @@
 function renderContent(router: string) {
 	const contentElement = document.querySelector('main');
 	const pageNotFoundHTML = '<h1>Page Not Found</h1>';
-
 	fetch(`${router}.html`)
 		.then(response => {
 			if (!response.ok) {
