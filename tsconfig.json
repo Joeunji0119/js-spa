@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		// 타입스크립트파일을 어떤 버전의 자바스크립트로 바꿔줄지 정하는 부분
+		"target": "es6",
+		// 자바스크립트 파일간 import 문법을 구현할 때 어떤 문법을 쓸지 정하는 곳
+		"esModuleInterop": true,
+		"module": "esnext",
+		"types": ["node"],
+		// 엄격한 유형 검사 켜기
+		"strict": false,
+		// /*!로 시작하는 copy-right 헤더 주석을 제외한 모든 주석을 제거
+		"removeComments": true,
+		// 소스맵 생성
+		"sourceMap": false
+	}
+}
