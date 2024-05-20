@@ -1,25 +1,31 @@
-function renderContent(router: string) {
-	const contentElement = document.querySelector('main');
-	const pageNotFoundHTML = '<h1>Page Not Found</h1>';
-	fetch(`${router}.html`)
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Page not found');
-			}
-			return response.text();
-		})
-		.then(html => {
-			contentElement.innerHTML = html;
-		})
-		.catch(error => {
-			contentElement.innerHTML = pageNotFoundHTML;
-		});
-}
+import Home from './page/home.js';
+import About from './page/about.js';
 
-function handleRouteChange() {
-	let path = window.location.hash.substr(1) || 'main';
-	renderContent(path);
-}
+const routes = {
+	'/': Home,
+	'/about': About,
+};
 
-window.addEventListener('hashchange', handleRouteChange);
-window.addEventListener('DOMContentLoaded', handleRouteChange);
+const $app = document.querySelector('.App');
+
+const renderComponent = (url: string) => {
+	const Component = routes[url];
+	if (Component) $app.innerHTML = Component.template();
+	else $app.innerHTML = '404 Not Found';
+};
+
+renderComponent(window.location.pathname);
+
+const navigate = (url: string) => {
+	history.pushState(null, null, url);
+	$app.innerHTML = routes[url].template();
+};
+
+window.addEventListener('click', e => {
+	const path = (e.target as HTMLElement).dataset.navi;
+	navigate(path);
+});
+
+window.addEventListener('popstate', () => {
+	navigate(window.location.pathname);
+});
